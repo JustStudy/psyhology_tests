@@ -27,17 +27,17 @@ import android.widget.ListView;
 public class TestListActivity extends ActionBarActivity {
 
     Intent intent = new Intent();
-    FragmentTestList k;
+    StartFragment k;
     FragmentTransaction tx;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    final String[] fragmentsList = {"com.example.psyhology_tests.FragmentTestList", "com.example.psyhology_tests.Fragment2"};
+    final String[] fragmentsList = {"com.example.psyhology_tests.StartFragment","com.example.psyhology_tests.FragmentTestList"};
     private String[] testArray;
     Button exit;
-    String[] listForList = {"Главная", "О програме"};
+    String[] listForList = {"Главная", "Список тестов"};
     // FragmentTransaction fTrans;
-    FragmentTestList fragmentTestList = new FragmentTestList();
+    StartFragment fragmentTestList = new StartFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class TestListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
 
-        k = new FragmentTestList();
+        k = new StartFragment();
         tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.content_frame, k);
         tx.commit();
@@ -104,14 +104,14 @@ public class TestListActivity extends ActionBarActivity {
         tx = getSupportFragmentManager().beginTransaction();
         switch (item.getItemId()) {
 
-            case R.id.item1:
+            case R.id.item2:
                 // Toast.makeText(getApplicationContext(),"item1",Toast.LENGTH_LONG).show();
                 tx.replace(R.id.content_frame, Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.FragmentTestList")).commit();
                 //  replace(Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.FragmentTestList"));
                 return true;
-            case R.id.item2:
+            case R.id.item1:
                 //Toast.makeText(getApplicationContext(),"item2",Toast.LENGTH_LONG).show();
-                tx.replace(R.id.content_frame, Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.Fragment2")).commit();
+                tx.replace(R.id.content_frame, Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.StartFragment")).commit();
                 // replace(Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.Fragment2"));
                 return true;
         }

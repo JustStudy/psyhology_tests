@@ -9,7 +9,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created with IntelliJ IDEA.
@@ -63,7 +62,7 @@ public class FragmentTestList extends Fragment implements Animation.AnimationLis
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Exiting program", Toast.LENGTH_LONG).show();
+
                 getActivity().finish();
             }
         });
