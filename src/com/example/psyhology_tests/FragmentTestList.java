@@ -26,7 +26,7 @@ public class FragmentTestList extends Fragment implements Animation.AnimationLis
         /*public static Fragment newInstance(Context context) {
             FragmentTestList f = new FragmentTestList();
 
-            return f;
+                return f;                               `
         }*/
 
     @Override
