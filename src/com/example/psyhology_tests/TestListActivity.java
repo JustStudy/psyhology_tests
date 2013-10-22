@@ -33,7 +33,7 @@ public class TestListActivity extends ActionBarActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     final String[] fragmentsList = {"com.example.psyhology_tests.StartFragment","com.example.psyhology_tests.FragmentTestList"};
-    private String[] testArray;
+  //  private String[] testArray;
     Button exit;
     String[] listForList = {"Главная", "Список тестов"};
     // FragmentTransaction fTrans;
@@ -43,22 +43,30 @@ public class TestListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         setContentView(R.layout.activity_main);
-
-
-        k = new StartFragment();
         tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.content_frame, k);
+        k = new StartFragment();
+          if(!getResources().getBoolean(R.bool.istablet)){
+
+
+              tx.replace(R.id.content_frame, k);
+
+        }
+        if(getResources().getBoolean(R.bool.istablet)){
+            tx.replace(R.id.fragment2ForTablet, k);
+        }
         tx.commit();
+
 
         ///To Navigation Drawer
 
-        testArray = getResources().getStringArray(R.array.tests_array);
+        //testArray = getResources().getStringArray(R.array.tests_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
 
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.tvlayouts, listForList));
+
         mDrawerList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, final int pos, long id) {
@@ -67,8 +75,13 @@ public class TestListActivity extends ActionBarActivity {
                     @Override
                     public void onDrawerClosed(View drawerView) {
                         super.onDrawerClosed(drawerView);
-                        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-                        tx.replace(R.id.content_frame, Fragment.instantiate(TestListActivity.this, fragmentsList[pos]));
+                        tx = getSupportFragmentManager().beginTransaction();
+                        if(!getResources().getBoolean(R.bool.istablet)){
+                            tx.replace(R.id.content_frame, Fragment.instantiate(TestListActivity.this, fragmentsList[pos]));
+                        }
+                        if(getResources().getBoolean(R.bool.istablet)){
+                            tx.replace(R.id.fragment2ForTablet, Fragment.instantiate(TestListActivity.this, fragmentsList[pos]));
+                              }
                         tx.commit();
                     }
                 });

@@ -31,7 +31,7 @@ public class FragmentTestList extends Fragment implements Animation.AnimationLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment1, null);
+        View v = inflater.inflate(R.layout.fragment1, container,false);
         tv1Test = (TextView) v.findViewById(R.id.BtnBigEyes);
         tv2Test = (TextView) v.findViewById(R.id.BtnYourNerve);
         simpleAnim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.blink);
