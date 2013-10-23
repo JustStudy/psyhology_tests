@@ -31,6 +31,7 @@ public class TestListActivity extends ActionBarActivity {
     FragmentTransaction tx;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
+    boolean DrawerState;
     private ActionBarDrawerToggle mDrawerToggle;
      String[] fragmentsList = {"com.example.psyhology_tests.StartFragment","com.example.psyhology_tests.FragmentTestList"};
   //  private String[] testArray;
@@ -98,6 +99,7 @@ public class TestListActivity extends ActionBarActivity {
          getSupportActionBar().setDisplayHomeAsUpEnabled(true);
          getSupportActionBar().setHomeButtonEnabled(true);
 
+
         /*mDrawerLayout.setDrawerListener(mDrawerToggle);
         if (savedInstanceState == null) {
            fTrans.replace(R.id.content_frame,fragmentTestList);
@@ -124,8 +126,15 @@ public class TestListActivity extends ActionBarActivity {
 
             case R.id.item2:
                 // Toast.makeText(getApplicationContext(),"item1",Toast.LENGTH_LONG).show();
+                 DrawerState=mDrawerLayout.isDrawerOpen(mDrawerList);
+                if(DrawerState){
+                mDrawerLayout.closeDrawer(mDrawerList);
+            }
+                if(!DrawerState) {
+                    mDrawerLayout.openDrawer(mDrawerList);
+                }
+                //tx.replace(R.id.content_frame, Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.FragmentTestList")).commit();
 
-                tx.replace(R.id.content_frame, Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.FragmentTestList")).commit();
                 //  replace(Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.FragmentTestList"));
                 return true;
             case R.id.item1:
@@ -135,6 +144,15 @@ public class TestListActivity extends ActionBarActivity {
                 }
               else  tx.replace(R.id.fragment2ForTablet, Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.StartFragment")).commit();
                 // replace(Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.Fragment2"));
+                return true;
+            case android.R.id.home:
+                DrawerState=mDrawerLayout.isDrawerOpen(mDrawerList);
+                if(DrawerState){
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                }
+                if(!DrawerState) {
+                    mDrawerLayout.openDrawer(mDrawerList);
+                }
                 return true;
         }
 
