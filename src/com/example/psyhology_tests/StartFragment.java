@@ -18,17 +18,17 @@ public class StartFragment extends Fragment  {
     Button toTestList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-       View v= inflater.inflate(R.layout.main,null);    //To change body of overridden methods use File | Settings | File Templates.
-         toTestList=(Button)v.findViewById(R.id.btnToListTest);
-        toTestList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!getResources().getBoolean(R.bool.istablet)){getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentTestList")).commit();}
-                else {getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment2ForTablet, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentTestList")).commit();
+       View v= inflater.inflate(R.layout.main,container,false);
+           //To change body of overridden methods use File | Settings | File Templates.
+        if(!getResources().getBoolean(R.bool.istablet)){
+            toTestList=(Button)v.findViewById(R.id.btnToListTest);
+            toTestList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentTestList")).commit();}
+            });}
 
-                }
-            }
-        });
+
         return v;
     }
 }

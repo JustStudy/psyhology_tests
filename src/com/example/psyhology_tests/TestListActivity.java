@@ -32,7 +32,7 @@ public class TestListActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    final String[] fragmentsList = {"com.example.psyhology_tests.StartFragment","com.example.psyhology_tests.FragmentTestList"};
+     String[] fragmentsList = {"com.example.psyhology_tests.StartFragment","com.example.psyhology_tests.FragmentTestList"};
   //  private String[] testArray;
     Button exit;
     String[] listForList = {"Главная", "Список тестов"};
@@ -43,6 +43,10 @@ public class TestListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         setContentView(R.layout.activity_main);
+        if(getResources().getBoolean(R.bool.istablet)){
+            fragmentsList [1] = "com.example.psyhology_tests.FragmentAbout";
+            listForList[1] = "О програме";
+        }
         tx = getSupportFragmentManager().beginTransaction();
         k = new StartFragment();
           if(!getResources().getBoolean(R.bool.istablet)){
@@ -91,8 +95,8 @@ public class TestListActivity extends ActionBarActivity {
 
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
-        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // getSupportActionBar().setHomeButtonEnabled(true);
+         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+         getSupportActionBar().setHomeButtonEnabled(true);
 
         /*mDrawerLayout.setDrawerListener(mDrawerToggle);
         if (savedInstanceState == null) {
@@ -104,6 +108,7 @@ public class TestListActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -119,12 +124,16 @@ public class TestListActivity extends ActionBarActivity {
 
             case R.id.item2:
                 // Toast.makeText(getApplicationContext(),"item1",Toast.LENGTH_LONG).show();
+
                 tx.replace(R.id.content_frame, Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.FragmentTestList")).commit();
                 //  replace(Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.FragmentTestList"));
                 return true;
             case R.id.item1:
                 //Toast.makeText(getApplicationContext(),"item2",Toast.LENGTH_LONG).show();
-                tx.replace(R.id.content_frame, Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.StartFragment")).commit();
+                if(!getResources().getBoolean(R.bool.istablet)){
+                    tx.replace(R.id.content_frame, Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.StartFragment")).commit();
+                }
+              else  tx.replace(R.id.fragment2ForTablet, Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.StartFragment")).commit();
                 // replace(Fragment.instantiate(TestListActivity.this, "com.example.psyhology_tests.Fragment2"));
                 return true;
         }

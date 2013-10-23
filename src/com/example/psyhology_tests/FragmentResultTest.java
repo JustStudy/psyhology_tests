@@ -44,7 +44,7 @@ public class FragmentResultTest extends Fragment implements Animation.AnimationL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.result, null);
+        View v = inflater.inflate(R.layout.result, container,false);
         ID();
 
         myAnim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.blink);
@@ -52,27 +52,30 @@ public class FragmentResultTest extends Fragment implements Animation.AnimationL
         TVmasiv = (TextView) v.findViewById(R.id.masivresult);
         result = getActivity().getIntent().getIntExtra("result", result);
         TVresult = (TextView) v.findViewById(R.id.tvresult);
-        Bexit = (Button) v.findViewById(R.id.Exit);
-        tostart = (Button) v.findViewById(R.id.buttonStart);
+        if(!getResources().getBoolean(R.bool.istablet)){
+            Bexit = (Button) v.findViewById(R.id.Exit);
+            tostart = (Button) v.findViewById(R.id.buttonStart);
+            Bexit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().finish();
+                }
+            });
+            tostart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentTestList")).commit();
+                }
+            });
+        }
+
+
         TVmasiv.setText("Ваш результат: " + result);
         TVmasiv.startAnimation(myAnim);
         test.result(TVresult, result);
         myAnim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.zoom_out);
         TVresult.startAnimation(myAnim);
-        Bexit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
-        tostart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentTestList")).commit();
-            }
-        });
-
-        return v;
+         return v;
 
     }
 

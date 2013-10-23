@@ -19,9 +19,11 @@ import android.widget.TextView;
  */
 public class FragmentTestList extends Fragment implements Animation.AnimationListener {
     Button exit;
+    TextView tvFinish;
     Animation simpleAnim;
     TextView tv1Test;
     TextView tv2Test;
+    TextView tvMain;
     int ID_Test;
         /*public static Fragment newInstance(Context context) {
             FragmentTestList f = new FragmentTestList();
@@ -32,11 +34,13 @@ public class FragmentTestList extends Fragment implements Animation.AnimationLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment1, container,false);
+
         tv1Test = (TextView) v.findViewById(R.id.BtnBigEyes);
         tv2Test = (TextView) v.findViewById(R.id.BtnYourNerve);
         simpleAnim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.blink);
         tv2Test.startAnimation(simpleAnim);
         tv1Test.startAnimation(simpleAnim);
+
         View.OnClickListener forInitTest = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,13 +55,40 @@ public class FragmentTestList extends Fragment implements Animation.AnimationLis
                 }
                 //Intent intent = new Intent(getActivity(),TestListActivity.class);
                 getActivity().getIntent().putExtra("ID", ID_Test);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.Fragment2")).commit();
+                if(!getResources().getBoolean(R.bool.istablet)){
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.Fragment2")).commit();
+                }
+                if(getResources().getBoolean(R.bool.istablet)){
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment2ForTablet, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.Fragment2")).commit();
+                }
                 //To change body of implemented methods use File | Settings | File Templates.
             }
         };
+        if(getResources().getBoolean(R.bool.istablet)){
+            tvMain = (TextView) v.findViewById(R.id.TVMainPage);
+            tvMain.startAnimation(simpleAnim);
+             tvFinish=(TextView)v.findViewById(R.id.textViewExit);
+            tvFinish.startAnimation(simpleAnim);
+        View.OnClickListener myOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //To change body of implemented methods use File | Settings | File Templates.
+                switch (v.getId()){
+                    case R.id.TVMainPage:
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment2ForTablet, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.StartFragment")).commit();
+                        break;
+                    case R.id.textViewExit: getActivity().finish();
+                        break;
+                }
+            }
+        } ;
+            tvMain.setOnClickListener(myOnClickListener);
+            tvFinish.setOnClickListener(myOnClickListener);
+        }
         simpleAnim.setAnimationListener(this);
         tv1Test.setOnClickListener(forInitTest);
         tv2Test.setOnClickListener(forInitTest);
+        if(!getResources().getBoolean(R.bool.istablet)){
         exit = (Button) v.findViewById(R.id.exitProg);
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +97,7 @@ public class FragmentTestList extends Fragment implements Animation.AnimationLis
                 getActivity().finish();
             }
         });
+        }
         return v;
     }
 

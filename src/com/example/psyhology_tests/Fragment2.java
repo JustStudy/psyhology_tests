@@ -127,9 +127,14 @@ public class Fragment2 extends Fragment {
                     for (int h = 0; h < test.rezultMasiv.length; h++) {
                         test.total_result += test.rezultMasiv[h];
                     }
-
                     getActivity().getIntent().putExtra("result", test.total_result);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentResultTest")).commit();
+                    if(!getResources().getBoolean(R.bool.istablet)){
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentResultTest")).commit();
+                    }
+                    if(getResources().getBoolean(R.bool.istablet)){
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment2ForTablet, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentResultTest")).commit();
+                    }
+
 
 
                 }
