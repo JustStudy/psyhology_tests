@@ -1,5 +1,6 @@
 package com.example.psyhology_tests;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -18,7 +18,7 @@ import android.widget.TextView;
  * To change this template use File | Settings | File Templates.
  */
 public class FragmentTestList extends Fragment implements Animation.AnimationListener {
-    Button exit;
+
     TextView tvFinish;
     Animation simpleAnim;
     TextView tv1Test;
@@ -53,17 +53,28 @@ public class FragmentTestList extends Fragment implements Animation.AnimationLis
                         ID_Test = 2;
                         break;
                 }
-                //Intent intent = new Intent(getActivity(),TestListActivity.class);
-                getActivity().getIntent().putExtra("ID", ID_Test);
+                //Intent intent = new Intent(getActivity(),MainStartActivity.class);
+
                 if(!getResources().getBoolean(R.bool.istablet)){
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.Fragment2")).commit();
+                  //  Intent intent = new Intent(getActivity(),TestActionActivity.class);
+                  Intent myintent = new Intent(getActivity(),TestActionActivity.class);
+                         myintent.putExtra("ID", ID_Test);
+                    getActivity().startActivity(myintent);
+                   // getActivity().getIntent().putExtra("ID", ID_Test);
+
+                   // getActivity().startActivity( getActivity().getIntent());
+                   // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentTestAction")).addToBackStack(null).commit();
+
                 }
                 if(getResources().getBoolean(R.bool.istablet)){
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment2ForTablet, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.Fragment2")).commit();
+                    getActivity().getIntent().putExtra("ID", ID_Test);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment2ForTablet, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentTestAction")).commit();
+
                 }
                 //To change body of implemented methods use File | Settings | File Templates.
             }
         };
+
         if(getResources().getBoolean(R.bool.istablet)){
             tvMain = (TextView) v.findViewById(R.id.TVMainPage);
             tvMain.startAnimation(simpleAnim);
@@ -75,7 +86,11 @@ public class FragmentTestList extends Fragment implements Animation.AnimationLis
                 //To change body of implemented methods use File | Settings | File Templates.
                 switch (v.getId()){
                     case R.id.TVMainPage:
+                        /*Intent k =new Intent(getActivity(),TestActionActivity.class);
+                         getActivity().startActivity(k);*/
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment2ForTablet, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.StartFragment")).commit();
+                       // getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null);
+                       // getActivity().getSupportFragmentManager().beginTransaction().commit();
                         break;
                     case R.id.textViewExit: getActivity().finish();
                         break;
@@ -85,18 +100,13 @@ public class FragmentTestList extends Fragment implements Animation.AnimationLis
             tvMain.setOnClickListener(myOnClickListener);
             tvFinish.setOnClickListener(myOnClickListener);
         }
+
         simpleAnim.setAnimationListener(this);
         tv1Test.setOnClickListener(forInitTest);
         tv2Test.setOnClickListener(forInitTest);
         if(!getResources().getBoolean(R.bool.istablet)){
-        exit = (Button) v.findViewById(R.id.exitProg);
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                getActivity().finish();
-            }
-        });
+
         }
         return v;
     }

@@ -1,5 +1,6 @@
 package com.example.psyhology_tests;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,7 +21,7 @@ import android.widget.TextView;
  */
 public class FragmentResultTest extends Fragment implements Animation.AnimationListener {
     MainTest test;
-    Button Bexit;
+
     Button tostart;
     TextView TVresult;
     TextView TVmasiv;
@@ -52,19 +53,17 @@ public class FragmentResultTest extends Fragment implements Animation.AnimationL
         TVmasiv = (TextView) v.findViewById(R.id.masivresult);
         result = getActivity().getIntent().getIntExtra("result", result);
         TVresult = (TextView) v.findViewById(R.id.tvresult);
+
         if(!getResources().getBoolean(R.bool.istablet)){
-            Bexit = (Button) v.findViewById(R.id.Exit);
+
             tostart = (Button) v.findViewById(R.id.buttonStart);
-            Bexit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getActivity().finish();
-                }
-            });
+
             tostart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentTestList")).commit();
+                    //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentTestList")).commit();
+                    Intent intent = new Intent(getActivity(),TestListActivity.class);
+                    getActivity().startActivity(intent);
                 }
             });
         }

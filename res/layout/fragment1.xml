@@ -22,11 +22,4 @@
             android:text="Пройти тест: Ваши нервы канаты или нити?!"
             android:id="@+id/BtnYourNerve" android:textColor="#ff20cc" android:clickable="true"
             android:layout_marginTop="10dp" android:textStyle="bold"/>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Выйти с приложения"
-            android:id="@+id/exitProg" android:singleLine="false"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="20dp"/>
 </LinearLayout>

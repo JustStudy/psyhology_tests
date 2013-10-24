@@ -1,5 +1,6 @@
 package com.example.psyhology_tests;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,7 +26,10 @@ public class StartFragment extends Fragment  {
             toTestList.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentTestList")).commit();}
+                   // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentTestList")).addToBackStack(null).commit();
+                    Intent intent = new Intent(getActivity(),TestListActivity.class);
+                    getActivity().startActivity(intent);
+                }
             });}
 
 

@@ -5,12 +5,15 @@
           android:versionName="1.0">
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="18"/>
     <application  android:theme="@style/Theme.AppCompat.Light.DarkActionBar" android:label="@string/app_name">
-        <activity  android:theme="@style/Theme.AppCompat.Light.DarkActionBar" android:name=".TestListActivity"
+        <activity  android:theme="@style/Theme.AppCompat.Light.DarkActionBar" android:name=".MainStartActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".TestListActivity"></activity>
+        <activity android:name=".TestActionActivity"></activity>
+        <activity android:name=".TestResultActivity"></activity>
     </application>
 </manifest> 

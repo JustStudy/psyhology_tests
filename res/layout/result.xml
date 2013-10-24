@@ -32,11 +32,5 @@
                 android:text="К списку тестов"
                 android:id="@+id/buttonStart" android:layout_marginTop="10dp" android:layout_weight="1"
                 android:textStyle="italic"/>
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Выход"
-                android:id="@+id/Exit" android:layout_marginTop="10dp" android:layout_weight="1"
-                android:textStyle="italic"/>
     </LinearLayout>
 </LinearLayout>

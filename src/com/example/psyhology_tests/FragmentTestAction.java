@@ -1,5 +1,6 @@
 package com.example.psyhology_tests;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,7 +17,7 @@ import android.widget.*;
  * Time: 20:40
  * To change this template use File | Settings | File Templates.
  */
-public class Fragment2 extends Fragment {
+public class FragmentTestAction extends Fragment {
     MainTest test;
     int id;
     Button NextPage;
@@ -79,7 +80,7 @@ public class Fragment2 extends Fragment {
     @Override
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.questionlayout, null);
+        View v = inflater.inflate(R.layout.questionlayout, container,false);
         switch (getActivity().getIntent().getIntExtra("ID", id)) {
             case 2:
                 test = new Test2();
@@ -127,12 +128,22 @@ public class Fragment2 extends Fragment {
                     for (int h = 0; h < test.rezultMasiv.length; h++) {
                         test.total_result += test.rezultMasiv[h];
                     }
-                    getActivity().getIntent().putExtra("result", test.total_result);
+
                     if(!getResources().getBoolean(R.bool.istablet)){
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentResultTest")).commit();
+                      //  getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentResultTest")).commit();
+                        Intent intent =new Intent(getActivity(),TestResultActivity.class);
+                         intent.putExtra("result", test.total_result);
+                          intent.putExtra("ID",getActivity().getIntent().getIntExtra("ID", id));
+                        getActivity().startActivity(intent);
+                        getActivity().finish();
+                        //getActivity().getIntent().putExtra("result", test.total_result);
+                       // getActivity().startActivity(getActivity().getIntent());
+
                     }
                     if(getResources().getBoolean(R.bool.istablet)){
+                        getActivity().getIntent().putExtra("result", test.total_result);
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment2ForTablet, Fragment.instantiate(getActivity(), "com.example.psyhology_tests.FragmentResultTest")).commit();
+
                     }
 
 
