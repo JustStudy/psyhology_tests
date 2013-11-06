@@ -30,23 +30,46 @@ public class MainStartActivity extends MainRelativeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
        // setContentView(R.layout.activity_main);
+          if(savedInstanceState==null)   {
+              tx = getSupportFragmentManager().beginTransaction();
+              k = new StartFragment();
+              if(!getResources().getBoolean(R.bool.istablet)){
 
-        tx = getSupportFragmentManager().beginTransaction();
-        k = new StartFragment();
-          if(!getResources().getBoolean(R.bool.istablet)){
 
+                  tx.replace(R.id.content_frame, k);
 
-              tx.replace(R.id.content_frame, k);
+              }
+              if(getResources().getBoolean(R.bool.istablet)){
+                  tx.replace(R.id.fragment2ForTablet, k);
+              }
 
-        }
-        if(getResources().getBoolean(R.bool.istablet)){
-            tx.replace(R.id.fragment2ForTablet, k);
-        }
+              tx.commit();
 
-        tx.commit();
+          }
+
 
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
+        if(getResources().getBoolean(R.bool.istablet)){
+            getSupportFragmentManager().putFragment(outState,"currentFrag",getSupportFragmentManager().findFragmentById(R.id.fragment2ForTablet));
+            //getSupportFragmentManager().saveFragmentInstanceState(getSupportFragmentManager().findFragmentById(R.id.fragment2ForTablet));
+
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if(getResources().getBoolean(R.bool.istablet)){
+        tx = getSupportFragmentManager().beginTransaction();
+       // tx.replace(R.id.fragment2ForTablet, getSupportFragmentManager().getFragment(savedInstanceState.getBundle("currentFrag"),"currentFrag" ));
+        tx.replace(R.id.fragment2ForTablet,getSupportFragmentManager().getFragment(savedInstanceState,"currentFrag")).commit();}
+       //getSupportFragmentManager().getFragment(savedInstanceState.getBundle("currentFrag"),"currentFrag" );
+       // Toast.makeText(getApplicationContext(),"good", Toast.LENGTH_LONG).show();
+    }
 }

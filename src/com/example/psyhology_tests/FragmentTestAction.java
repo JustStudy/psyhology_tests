@@ -19,6 +19,15 @@ import android.widget.*;
  */
 public class FragmentTestAction extends Fragment {
     MainTest test;
+    //int globalI;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("I",i);
+    }
+
+
     int id;
     Button NextPage;
     Button PrevPage;
@@ -80,6 +89,9 @@ public class FragmentTestAction extends Fragment {
     @Override
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if(savedInstanceState!=null){
+         i=savedInstanceState.getInt("I");
+        }
         View v = inflater.inflate(R.layout.questionlayout, container,false);
         switch (getActivity().getIntent().getIntExtra("ID", id)) {
             case 2:
@@ -122,6 +134,7 @@ public class FragmentTestAction extends Fragment {
 
                 test.calculate(maingroup, i);
                 i++;
+      //         globalI = i;
                 if (i < test.someQuestion.length) {
                     showInViewQuestion(test);
                 } else {
